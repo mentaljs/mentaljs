@@ -1,0 +1,1 @@
+export { XView, XViewProps } from './XView';

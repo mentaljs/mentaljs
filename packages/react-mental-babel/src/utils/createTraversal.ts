@@ -1,5 +1,5 @@
 import * as t from '@babel/types';
-import { XStyleKeys } from '../../mental-styles/XStyles'; // Do not use absolute path
+import { XStyleKeys } from 'mental-styles'; // Do not use absolute path
 import { VisitNodeObject, NodePath } from '@babel/traverse';
 import { generateKey } from './generateKey';
 

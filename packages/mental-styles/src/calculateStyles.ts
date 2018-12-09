@@ -1,11 +1,11 @@
-import XStyleFactory from './XStyleFactory';
+import { XStyleFactoryRegistry } from './XStyleFactory';
 import { XStyles } from './XStyles';
 
 // Our styles cache. Can it be faster?
 const stylesCache = new Map<string, string>();
 
 export function calculateStyles(styles: XStyles, selected: boolean = false) {
-    const factory = XStyleFactory.factory;
+    const factory = XStyleFactoryRegistry.factory;
     let css: string[] = ['x'];
 
     let position: 'relative' | 'absolute' | 'fixed' | undefined;

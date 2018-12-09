@@ -18,4 +18,4 @@ class XStyleFactoryHolder {
     }
 }
 
-export default new XStyleFactoryHolder();
+export const XStyleFactoryRegistry = new XStyleFactoryHolder();

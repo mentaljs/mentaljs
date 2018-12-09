@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { XStyles } from 'mental-styles/XStyles';
-import { calculateStyles } from 'mental-styles/calculateStyles';
+import { XStyles } from 'mental-styles';
+import { calculateStyles } from 'mental-styles';
 import { XViewSelectedContext } from './XViewSelectedContext';
 
 export interface XViewProps extends XStyles {
