@@ -5,6 +5,6 @@
     }, {
         "path": "./packages/react-mental"
     }, {
-        "path": "./packages/react-mental-babel"
+        "path": "./packages/babel-plugin-transform-mental"
     }]
 }
