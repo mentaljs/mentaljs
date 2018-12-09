@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "lib": ["es5", "es6", "dom", "esnext.asynciterable"],
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
         "sourceMap": true,
         "allowJs": false,
         "jsx": "react",
@@ -19,27 +19,10 @@
         "strictPropertyInitialization": true,
         "typeRoots": ["./node_modules/@types"],
         "outDir": "lib/",
-        "baseUrl": "packages",
         "resolveJsonModule": true,
-        "paths": {
-            "mental-styles": ["mental-styles"],
-            "react-mental": ["react-mental"],
-            "react-mental-babel": ["react-mental-babel"]
-        },
         "importHelpers": false
     },
     "exclude": [
-        "node_modules/**/*",
-        "build",
-        "scripts",
-        "acceptance-tests",
-        "webpack",
-        "jest",
-        "**/*.spec.ts"
-    ],
-    "include": [
-        "./packages/mental-styles",
-        "./packages/react-mental",
-        "./packages/react-mental-babel"
+        "node_modules"
     ]
 }
