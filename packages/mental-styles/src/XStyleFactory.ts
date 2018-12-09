@@ -1,5 +1,3 @@
-import { XStyles } from './XStyles';
-
 export interface XStyleFactory {
     createStyle: (style: any) => string;
 }

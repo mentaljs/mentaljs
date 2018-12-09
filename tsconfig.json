@@ -7,7 +7,6 @@
         "allowJs": false,
         "jsx": "react",
         "moduleResolution": "node",
-        "rootDir": "packages",
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
@@ -18,9 +17,9 @@
         "allowSyntheticDefaultImports": true,
         "strictPropertyInitialization": true,
         "typeRoots": ["./node_modules/@types"],
-        "outDir": "lib/",
         "resolveJsonModule": true,
-        "importHelpers": false
+        "importHelpers": false,
+        "composite": true,
     },
     "exclude": [
         "node_modules"
