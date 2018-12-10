@@ -3,6 +3,14 @@ import { XStyles } from 'mental-styles';
 import { calculateStyles } from 'mental-styles';
 import { XViewSelectedContext } from './XViewSelectedContext';
 import { XViewRouterContext } from './XViewRouterContext';
+import { XViewRouteContext } from './XViewRouteContext';
+
+function normalizePath(src: string): string {
+    if (src.indexOf('?') >= 0) {
+        src = src.split('?', 2)[0];
+    }
+    return src.endsWith('/') ? src.substring(0, src.length - 1) : src;
+}
 
 export interface XViewProps extends XStyles {
 
@@ -21,6 +29,7 @@ export interface XViewProps extends XStyles {
     href?: any;
     path?: string;
     replace?: boolean;
+    linkSelectable?: boolean;
 
     // React
     ref?: any;
@@ -64,9 +73,27 @@ export const XView = React.memo((props: XViewProps) => {
     let selected = props.selected || false;
     let shouldTrackSelected = props.selected === undefined && (
         props.selectedBackgroundColor || props.selectedHoverBackgroundColor || props.selectedColor || (props as any).__styleSelectable);
+    let enforceSelected = false;
     if (shouldTrackSelected) {
-        let context = React.useContext(XViewSelectedContext);
-        selected = context;
+        if (props.linkSelectable && props.path) {
+            let route = React.useContext(XViewRouteContext);
+            if (route) {
+                let path = normalizePath(route.path);
+                if (path === props.path) {
+                    enforceSelected = true;
+                    selected = true;
+                } else {
+                    selected = false;
+                }
+            } else {
+                selected = false;
+            }
+        } else {
+            let context = React.useContext(XViewSelectedContext);
+            selected = context;
+        }
+    } else if (props.selected !== undefined) {
+        enforceSelected = true;
     }
 
     // Resolve style
@@ -84,17 +111,29 @@ export const XView = React.memo((props: XViewProps) => {
     }
 
     // Render
+
+    let render: any;
     if (props.as === 'a') {
-        return (
+        render = (
             <a className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} target={props.target} href={href} ref={props.ref} >
                 {props.children}
             </a>
         );
     } else {
-        return (
+        render = (
             <div className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} ref={props.ref} >
                 {props.children}
             </div>
         );
+    }
+
+    if (enforceSelected) {
+        return (
+            <XViewSelectedContext.Provider value={selected}>
+                {render}
+            </XViewSelectedContext.Provider>
+        );
+    } else {
+        return render;
     }
 });
