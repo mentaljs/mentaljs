@@ -4,10 +4,10 @@
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "dependencies": {
-        "@types/react": "^16.7.13",
-        "mental-styles": "^1.0.6"
+        "mental-styles": "file:../mental-styles"
     },
     "peerDependencies": {
+        "@types/react": "*",
         "react": "*"
     }
 }
