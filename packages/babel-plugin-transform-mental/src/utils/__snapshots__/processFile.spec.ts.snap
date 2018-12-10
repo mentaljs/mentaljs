@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`babel should extract static styles 1`] = `
+"import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
+
+var ___style_key_n = calculateStyles({
+  margin: 20
+});
+
+export class Bar extends React.Component {
+  render() {
+    let a = 1;
+    return <XView marginTop={a} __styleClassName={___style_key_n}>
+                            Hello!
+                        </XView>;
+  }
+
+}"
+`;
+
+exports[`babel should replace with static div for static-only views 1`] = `
+"import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
+
+var ___style_key_n = calculateStyles({
+  margin: 20
+});
+
+export class Bar extends React.Component {
+  render() {
+    return <div className={___style_key_n}>
+                            Hello!
+                        </div>;
+  }
+
+}"
+`;

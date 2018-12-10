@@ -1,4 +1,9 @@
 {
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+    },
     "files": [],
     "references": [{
         "path": "./packages/mental-styles"

@@ -1,9 +1,9 @@
 import * as t from '@babel/types';
 import { XStyleKeys } from 'mental-styles'; // Do not use absolute path
 import { VisitNodeObject, NodePath } from '@babel/traverse';
-import { generateKey } from './generateKey';
+import { KeyGenerator } from './KeyGenerator';
 
-export function createTraversal() {
+export function createTraversal(keyGenerator: KeyGenerator) {
     let isImported = false;
     let pageHasStyles = false;
     let body: t.Statement[] = [];
@@ -27,15 +27,16 @@ export function createTraversal() {
         },
         JSXElement: {
             enter(traversePath: NodePath<t.JSXElement>) {
+                if ((traversePath.node.openingElement.name as t.JSXIdentifier).name !== 'XView') {
+                    return;
+                }
                 let attrs = [...traversePath.node.openingElement.attributes];
                 let i = 0;
                 let removed = false;
                 let styles: (t.ObjectProperty)[] = [];
                 let selectedStyles: (t.ObjectProperty)[] = [];
                 let hasStyles = false;
-                if ((traversePath.node.openingElement.name as t.JSXIdentifier).name !== 'XView') {
-                    return;
-                }
+                let hasOnlyStaticStyles = true;
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
@@ -75,8 +76,12 @@ export function createTraversal() {
                                     removed = true;
                                     hasStyles = true;
                                     pageHasStyles = true;
+                                } else {
+                                    hasOnlyStaticStyles = false;
                                 }
                             }
+                        } else {
+                            hasOnlyStaticStyles = false;
                         }
                     }
 
@@ -86,12 +91,12 @@ export function createTraversal() {
                 }
 
                 if (hasStyles) {
-                    let key = generateKey();
+                    let key = keyGenerator.generateKey();
                     while (key.indexOf('-') > 0) {
                         key = key.replace('-', '_');
                     }
                     let uuid = 'style_' + key;
-                    if (styles.length > 0) {
+                    if (selectedStyles.length === 0 && hasOnlyStaticStyles) {
                         pending.push(
                             t.variableDeclaration('var', [
                                 t.variableDeclarator(
@@ -101,31 +106,52 @@ export function createTraversal() {
                                     ])
                                 )])
                         );
-
+                        traversePath.node.openingElement.name = t.jsxIdentifier('div');
+                        if (traversePath.node.closingElement) {
+                            traversePath.node.closingElement!.name = t.jsxIdentifier('div');
+                        }
                         traversePath.node.openingElement.attributes.push(t.jsxAttribute(
-                            t.jsxIdentifier('__styleClassName'),
+                            t.jsxIdentifier('className'),
                             t.jsxExpressionContainer(t.identifier('___' + uuid + '_n'))
                         ))
-                    }
-                    if (selectedStyles.length > 0) {
-                        pending.push(
-                            t.variableDeclaration('var', [
-                                t.variableDeclarator(
-                                    t.identifier('___' + uuid + '_s'),
-                                    t.callExpression(t.identifier('calculateStyles'), [
-                                        t.objectExpression([...styles, ...selectedStyles])
-                                    ])
-                                )])
-                        );
+                    } else {
+                        if (styles.length > 0) {
+                            pending.push(
+                                t.variableDeclaration('var', [
+                                    t.variableDeclarator(
+                                        t.identifier('___' + uuid + '_n'),
+                                        t.callExpression(t.identifier('calculateStyles'), [
+                                            t.objectExpression(styles)
+                                        ])
+                                    )])
+                            );
 
-                        traversePath.node.openingElement.attributes.push(t.jsxAttribute(
-                            t.jsxIdentifier('__styleSelectedClassName'),
-                            t.jsxExpressionContainer(t.identifier('___' + uuid + '_s'))
-                        ))
-                        traversePath.node.openingElement.attributes.push(t.jsxAttribute(
-                            t.jsxIdentifier('__styleSelectable'),
-                            t.jsxExpressionContainer(t.booleanLiteral(true))
-                        ));
+                            traversePath.node.openingElement.attributes.push(t.jsxAttribute(
+                                t.jsxIdentifier('__styleClassName'),
+                                t.jsxExpressionContainer(t.identifier('___' + uuid + '_n'))
+                            ))
+                            // traversePath.node.
+                        }
+                        if (selectedStyles.length > 0) {
+                            pending.push(
+                                t.variableDeclaration('var', [
+                                    t.variableDeclarator(
+                                        t.identifier('___' + uuid + '_s'),
+                                        t.callExpression(t.identifier('calculateStyles'), [
+                                            t.objectExpression([...styles, ...selectedStyles])
+                                        ])
+                                    )])
+                            );
+
+                            traversePath.node.openingElement.attributes.push(t.jsxAttribute(
+                                t.jsxIdentifier('__styleSelectedClassName'),
+                                t.jsxExpressionContainer(t.identifier('___' + uuid + '_s'))
+                            ))
+                            traversePath.node.openingElement.attributes.push(t.jsxAttribute(
+                                t.jsxIdentifier('__styleSelectable'),
+                                t.jsxExpressionContainer(t.booleanLiteral(true))
+                            ));
+                        }
                     }
                 }
             }
