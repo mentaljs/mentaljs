@@ -1,11 +1,11 @@
 {
     "name": "react-mental",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "dependencies": {
         "@types/react": "^16.7.13",
-        "mental-styles": "^1.0.5"
+        "mental-styles": "^1.0.6"
     },
     "peerDependencies": {
         "react": "*"
