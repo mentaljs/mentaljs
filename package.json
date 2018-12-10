@@ -12,7 +12,8 @@
     ]
   },
   "scripts": {
-    "build": "yarn tsc --build"
+    "build": "yarn tsc --build",
+    "release": "yarn build && yarn lerna publish"
   },
   "dependencies": {
     "@types/jest": "^23.3.10",
