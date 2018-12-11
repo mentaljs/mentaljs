@@ -123,7 +123,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         }
 
                         if (hasSelectedStyles) {
-                            let exported = loadStyles(stylesSelectedObj);
+                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj });
 
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectedClassName'),
