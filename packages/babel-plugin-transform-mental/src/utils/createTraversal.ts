@@ -102,7 +102,6 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                     while (key.indexOf('-') > 0) {
                         key = key.replace('-', '_');
                     }
-                    let uuid = 'style_' + key;
                     if (!hasSelectedStyles && hasOnlyStaticStyles) {
                         let exported = loadStyles(stylesObj);
                         traversePath.node.openingElement.name = t.jsxIdentifier('div');
@@ -111,7 +110,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         }
                         traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                             t.jsxIdentifier('className'),
-                            t.stringLiteral(exported)
+                            t.stringLiteral('x ' + exported)
                         ))
                     } else {
                         if (hasNormalStyles) {
