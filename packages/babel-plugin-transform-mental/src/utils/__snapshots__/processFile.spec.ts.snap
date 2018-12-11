@@ -19,7 +19,7 @@ exports[`babel should replace with static div for static-only views 1`] = `
 import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-1sfmjf6.css\\";
 export class Bar extends React.Component {
   render() {
-    return <div className=\\"css-1sfmjf6\\">
+    return <div className=\\"x css-1sfmjf6\\">
                             Hello!
                         </div>;
   }
