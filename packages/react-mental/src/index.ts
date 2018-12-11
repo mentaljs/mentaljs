@@ -1,3 +1,4 @@
+import './styles.css';
 export { XView, XViewProps } from './XView';
 export { XViewSelectedContext } from './XViewSelectedContext';
 export { XViewRouter, XViewRoute } from './XViewRouter';
