@@ -88,7 +88,14 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                 }
                             }
                         } else {
-                            hasOnlyStaticStyles = false;
+                            if (a.name.name !== 'key' &&
+                                a.name.name !== 'ref' &&
+                                a.name.name !== 'onMouseDown' &&
+                                a.name.name !== 'onMouseEnter' &&
+                                a.name.name !== 'onMouseUp' &&
+                                a.name.name !== 'onClick') {
+                                hasOnlyStaticStyles = false;
+                            }
                         }
                     }
 

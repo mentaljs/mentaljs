@@ -43,4 +43,20 @@ describe('babel', () => {
         `;
         expect(processFile(source, new TestKeyGenerator(['key']))).toMatchSnapshot();
     });
+
+    it('should ignore keys and callbacks', () => {
+        let source = `
+        export class Bar extends React.Component {
+            callback = () => { }
+            render() {
+                return (
+                    <XView key="key" margin={40} onMouseDown={this.callback} onMouseUp={this.callback} onClick={this.callback}>
+                        Hello!
+                    </XView>
+                );
+            }
+        }
+    `;
+        expect(processFile(source, new TestKeyGenerator(['key']))).toMatchSnapshot();
+    });
 });

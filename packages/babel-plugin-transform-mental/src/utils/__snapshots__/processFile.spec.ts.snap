@@ -14,6 +14,21 @@ export class Bar extends React.Component {
 }"
 `;
 
+exports[`babel should ignore keys and callbacks 1`] = `
+"import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
+import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-1sfmjf6.css\\";
+export class Bar extends React.Component {
+  callback = () => {};
+
+  render() {
+    return <div key=\\"key\\" onMouseDown={this.callback} onMouseUp={this.callback} onClick={this.callback} className=\\"x css-1sfmjf6\\">
+                        Hello!
+                    </div>;
+  }
+
+}"
+`;
+
 exports[`babel should replace with static div for static-only views 1`] = `
 "import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
 import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-1sfmjf6.css\\";
