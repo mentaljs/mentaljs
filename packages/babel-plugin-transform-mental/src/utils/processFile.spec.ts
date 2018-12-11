@@ -34,7 +34,7 @@ describe('babel', () => {
             export class Bar extends React.Component {
                 render() {
                     return (
-                        <XView margin={20}>
+                        <XView margin={40}>
                             Hello!
                         </XView>
                     );

@@ -2,12 +2,22 @@ import * as t from '@babel/types';
 import { XStyleKeys } from 'mental-styles'; // Do not use absolute path
 import { VisitNodeObject, NodePath } from '@babel/traverse';
 import { KeyGenerator } from './KeyGenerator';
+import { extractStyles } from './exportStyles';
 
 export function createTraversal(keyGenerator: KeyGenerator) {
     let isImported = false;
     let pageHasStyles = false;
     let body: t.Statement[] = [];
     let pending: t.Statement[] = [];
+    let imported = new Set<string>();
+    function loadStyles(src: any) {
+        let exported = extractStyles(src);
+        if (!imported.has(exported.key)) {
+            imported.add(exported.key);
+            pending.push(t.importDeclaration([], t.stringLiteral(exported.path)));
+        }
+        return exported.key;
+    }
     const traverseOptions: { JSXElement: VisitNodeObject<t.JSXElement>, Program: VisitNodeObject<t.Program> } = {
         Program: {
             enter(traversePath: NodePath<t.Program>) {
@@ -15,6 +25,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 pageHasStyles = false;
                 body = traversePath.node.body;
                 pending = [];
+                imported.clear();
             },
             exit(traversePath: NodePath<t.Program>) {
                 if (!isImported && pageHasStyles) {
@@ -33,9 +44,11 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let attrs = [...traversePath.node.openingElement.attributes];
                 let i = 0;
                 let removed = false;
-                let styles: (t.ObjectProperty)[] = [];
-                let selectedStyles: (t.ObjectProperty)[] = [];
+                let stylesObj: any = {};
+                let stylesSelectedObj: any = {};
                 let hasStyles = false;
+                let hasSelectedStyles = false;
+                let hasNormalStyles = false;
                 let hasOnlyStaticStyles = true;
                 for (let a of attrs) {
                     removed = false;
@@ -44,14 +57,11 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                             if (a.value.type === 'StringLiteral') {
                                 if (a.name.name.startsWith('selected')) {
                                     let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
-                                    console.log(c);
-                                    selectedStyles.push(t.objectProperty(t.identifier(c),
-                                        t.stringLiteral(a.value.value)
-                                    ));
+                                    stylesSelectedObj[c] = a.value.value;
+                                    hasSelectedStyles = true;
                                 } else {
-                                    styles.push(t.objectProperty(t.identifier(a.name.name),
-                                        t.stringLiteral(a.value.value)
-                                    ));
+                                    stylesObj[a.name.name] = a.value.value;
+                                    hasNormalStyles = true;
                                 }
                                 // styles[a.name.name] = a.value;
                                 traversePath.node.openingElement.attributes.splice(i, 1);
@@ -63,14 +73,11 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                     // styles[a.name.name] = a.value.expression;
                                     if (a.name.name.startsWith('selected')) {
                                         let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
-                                        console.log(c);
-                                        selectedStyles.push(t.objectProperty(t.identifier(c),
-                                            a.value.expression
-                                        ));
+                                        stylesSelectedObj[c] = a.value.expression.value;
+                                        hasSelectedStyles = true;
                                     } else {
-                                        styles.push(t.objectProperty(t.identifier(a.name.name),
-                                            a.value.expression
-                                        ));
+                                        stylesObj[a.name.name] = a.value.expression.value;
+                                        hasNormalStyles = true;
                                     }
                                     traversePath.node.openingElement.attributes.splice(i, 1);
                                     removed = true;
@@ -96,56 +103,32 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         key = key.replace('-', '_');
                     }
                     let uuid = 'style_' + key;
-                    if (selectedStyles.length === 0 && hasOnlyStaticStyles) {
-                        pending.push(
-                            t.variableDeclaration('var', [
-                                t.variableDeclarator(
-                                    t.identifier('___' + uuid + '_n'),
-                                    t.callExpression(t.identifier('calculateStyles'), [
-                                        t.objectExpression(styles)
-                                    ])
-                                )])
-                        );
+                    if (!hasSelectedStyles && hasOnlyStaticStyles) {
+                        let exported = loadStyles(stylesObj);
                         traversePath.node.openingElement.name = t.jsxIdentifier('div');
                         if (traversePath.node.closingElement) {
                             traversePath.node.closingElement!.name = t.jsxIdentifier('div');
                         }
                         traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                             t.jsxIdentifier('className'),
-                            t.jsxExpressionContainer(t.identifier('___' + uuid + '_n'))
+                            t.stringLiteral(exported)
                         ))
                     } else {
-                        if (styles.length > 0) {
-                            pending.push(
-                                t.variableDeclaration('var', [
-                                    t.variableDeclarator(
-                                        t.identifier('___' + uuid + '_n'),
-                                        t.callExpression(t.identifier('calculateStyles'), [
-                                            t.objectExpression(styles)
-                                        ])
-                                    )])
-                            );
-
+                        if (hasNormalStyles) {
+                            let exported = loadStyles(stylesObj);
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleClassName'),
-                                t.jsxExpressionContainer(t.identifier('___' + uuid + '_n'))
+                                t.stringLiteral(exported)
                             ))
                             // traversePath.node.
                         }
-                        if (selectedStyles.length > 0) {
-                            pending.push(
-                                t.variableDeclaration('var', [
-                                    t.variableDeclarator(
-                                        t.identifier('___' + uuid + '_s'),
-                                        t.callExpression(t.identifier('calculateStyles'), [
-                                            t.objectExpression([...styles, ...selectedStyles])
-                                        ])
-                                    )])
-                            );
+
+                        if (hasSelectedStyles) {
+                            let exported = loadStyles(stylesSelectedObj);
 
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectedClassName'),
-                                t.jsxExpressionContainer(t.identifier('___' + uuid + '_s'))
+                                t.stringLiteral(exported)
                             ))
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectable'),
