@@ -16,7 +16,7 @@ export interface XViewProps extends XStyles {
 
     // State and rendering
     selected?: boolean;
-    as?: 'div' | 'a';
+    as?: 'div' | 'a' | 'img';
 
     // Callbacks
     onClick?: React.MouseEventHandler<any>;
@@ -30,6 +30,10 @@ export interface XViewProps extends XStyles {
     path?: string;
     replace?: boolean;
     linkSelectable?: boolean;
+
+    // Image
+    src?: string;
+    srcSet?: string;
 
     // React
     ref?: any;
@@ -119,6 +123,10 @@ export const XView = (props: XViewProps) => {
                 {props.children}
             </a>
         );
+    } else if (props.as === 'img') {
+        render = (
+            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.src} />
+        )
     } else {
         render = (
             <div className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} ref={props.ref} >

@@ -58,6 +58,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let hasOnlyStaticStyles = true;
                 let hasHoverStyles = false;
                 let hasSelectedHoverStyles = false;
+                let hasAsProps = false;
+                let asProp: string = 'div';
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
@@ -123,8 +125,19 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                 a.name.name !== 'onMouseDown' &&
                                 a.name.name !== 'onMouseEnter' &&
                                 a.name.name !== 'onMouseUp' &&
-                                a.name.name !== 'onClick') {
+                                a.name.name !== 'onClick' &&
+                                a.name.name !== 'src' &&
+                                a.name.name !== 'srcSet' &&
+                                a.name.name !== 'as') {
                                 hasOnlyStaticStyles = false;
+                            }
+                            if (a.name.name === 'as') {
+                                if (a.value.type === 'StringLiteral') {
+                                    hasAsProps = true;
+                                    asProp = a.value.value;
+                                } else {
+                                    hasOnlyStaticStyles = false;
+                                }
                             }
                         }
                     }
@@ -141,9 +154,9 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                     }
                     if (!hasSelectedStyles && hasOnlyStaticStyles) {
                         let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
-                        traversePath.node.openingElement.name = t.jsxIdentifier('div');
+                        traversePath.node.openingElement.name = t.jsxIdentifier(asProp);
                         if (traversePath.node.closingElement) {
-                            traversePath.node.closingElement!.name = t.jsxIdentifier('div');
+                            traversePath.node.closingElement!.name = t.jsxIdentifier(asProp);
                         }
                         traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                             t.jsxIdentifier('className'),

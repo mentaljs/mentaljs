@@ -47,6 +47,8 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let level: '1' | undefined;
     let backgroundColor: string | undefined;
     let hoverBackgroundColor: string | undefined;
+    let backgroundImage: string | undefined;
+    let hoverBackgroundImage: string | undefined;
     let color: string | undefined;
     let cursor: 'pointer' | undefined;
 
@@ -71,6 +73,15 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     if (styles.backgroundColor !== undefined && styles.backgroundColor !== null) {
         backgroundColor = styles.backgroundColor;
+    }
+    if (styles.hoverBackgroundColor !== undefined && styles.hoverBackgroundColor !== null) {
+        hoverBackgroundColor = styles.hoverBackgroundColor;
+    }
+    if (styles.backgroundImage !== undefined && styles.backgroundImage !== null) {
+        backgroundImage = styles.backgroundImage;
+    }
+    if (styles.hoverBackgroundImage !== undefined && styles.hoverBackgroundImage !== null) {
+        hoverBackgroundImage = styles.hoverBackgroundImage;
     }
     if (styles.hoverBackgroundColor !== undefined && styles.hoverBackgroundColor !== null) {
         hoverBackgroundColor = styles.hoverBackgroundColor;
@@ -446,6 +457,24 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
             stylesCache.set(key, factory.createStyle({
                 '&:hover, &:focus': {
                     backgroundColor: hoverBackgroundColor
+                }
+            }).toString());
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (backgroundImage !== undefined) {
+        let key = 'background-image: ' + backgroundImage;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({ backgroundImage: backgroundImage }));
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (hoverBackgroundImage !== undefined) {
+        let key = 'hover-background-image: ' + hoverBackgroundImage;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({
+                '&:hover, &:focus': {
+                    hoverBackgroundImage: hoverBackgroundImage
                 }
             }).toString());
         }
