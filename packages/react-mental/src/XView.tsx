@@ -36,7 +36,7 @@ export interface XViewProps extends XStyles {
     children?: any;
 }
 
-export const XView = React.memo((props: XViewProps) => {
+export const XView = (props: XViewProps) => {
 
     // Resolve on click
     let onClick = React.useMemo<React.MouseEventHandler<any> | undefined>(() => {
@@ -136,4 +136,4 @@ export const XView = React.memo((props: XViewProps) => {
     } else {
         return render;
     }
-});
+};
