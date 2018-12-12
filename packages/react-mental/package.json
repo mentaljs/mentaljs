@@ -4,7 +4,8 @@
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
     "dependencies": {
-        "mental-styles": "file:../mental-styles"
+        "mental-styles": "file:../mental-styles",
+        "babel-plugin-transform-mental": "file:../babel-plugin-transform-mental"
     },
     "peerDependencies": {
         "@types/react": "*",
