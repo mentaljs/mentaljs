@@ -140,7 +140,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         key = key.replace('-', '_');
                     }
                     if (!hasSelectedStyles && hasOnlyStaticStyles) {
-                        let exported = loadStyles(stylesObj, { ...stylesHoverObj, ...stylesSelectedHoverObj }, hasHoverStyles || hasSelectedHoverStyles);
+                        let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
                         traversePath.node.openingElement.name = t.jsxIdentifier('div');
                         if (traversePath.node.closingElement) {
                             traversePath.node.closingElement!.name = t.jsxIdentifier('div');
@@ -152,7 +152,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                     } else {
                         if (hasNormalStyles) {
 
-                            let exported = loadStyles(stylesObj, { ...stylesHoverObj, ...stylesSelectedHoverObj }, hasHoverStyles || hasSelectedHoverStyles);
+                            let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleClassName'),
                                 t.stringLiteral(exported)
