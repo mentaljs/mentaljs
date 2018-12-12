@@ -22,6 +22,7 @@ export interface XViewProps extends XStyles {
     onClick?: React.MouseEventHandler<any>;
     onMouseDown?: React.MouseEventHandler<any>;
     onMouseEnter?: React.MouseEventHandler<any>;
+    onMouseLeave?: React.MouseEventHandler<any>;
     onMouseUp?: React.MouseEventHandler<any>;
 
     // Navigation
@@ -40,7 +41,7 @@ export interface XViewProps extends XStyles {
     children?: any;
 }
 
-export const XView = (props: XViewProps) => {
+export const XView = React.memo((props: XViewProps) => {
 
     // Resolve on click
     let onClick = React.useMemo<React.MouseEventHandler<any> | undefined>(() => {
@@ -119,17 +120,17 @@ export const XView = (props: XViewProps) => {
     let render: any;
     if (props.as === 'a') {
         render = (
-            <a className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} target={props.target} href={href} ref={props.ref} >
+            <a className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} target={props.target} href={href} ref={props.ref} >
                 {props.children}
             </a>
         );
     } else if (props.as === 'img') {
         render = (
-            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.src} />
+            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.src} />
         )
     } else {
         render = (
-            <div className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseUp={props.onMouseUp} ref={props.ref} >
+            <div className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} >
                 {props.children}
             </div>
         );
@@ -144,6 +145,6 @@ export const XView = (props: XViewProps) => {
     } else {
         return render;
     }
-};
+});
 
 XView.displayName = 'XView';

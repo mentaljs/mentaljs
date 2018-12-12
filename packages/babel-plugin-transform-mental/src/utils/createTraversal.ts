@@ -124,6 +124,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                 a.name.name !== 'ref' &&
                                 a.name.name !== 'onMouseDown' &&
                                 a.name.name !== 'onMouseEnter' &&
+                                a.name.name !== 'onMouseLeave' &&
                                 a.name.name !== 'onMouseUp' &&
                                 a.name.name !== 'onClick' &&
                                 a.name.name !== 'src' &&
