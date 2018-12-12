@@ -451,17 +451,6 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         }
         css.push(stylesCache.get(key)!);
     }
-    if (hoverBackgroundColor !== undefined) {
-        let key = 'hover-background-color: ' + hoverBackgroundColor;
-        if (!stylesCache.has(key)) {
-            stylesCache.set(key, factory.createStyle({
-                '&:hover, &:focus': {
-                    backgroundColor: hoverBackgroundColor
-                }
-            }).toString());
-        }
-        css.push(stylesCache.get(key)!);
-    }
     if (color !== undefined) {
         let key = 'color: ' + color;
         if (!stylesCache.has(key)) {

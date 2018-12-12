@@ -10,8 +10,12 @@ export function createTraversal(keyGenerator: KeyGenerator) {
     let body: t.Statement[] = [];
     let pending: t.Statement[] = [];
     let imported = new Set<string>();
-    function loadStyles(src: any) {
-        let exported = extractStyles(src);
+    function loadStyles(src: any, hover: any, hasHover: boolean) {
+        let st = src;
+        if (hasHover) {
+            st = { ...src, '&:hover, &:focus': hover };
+        }
+        let exported = extractStyles(st);
         if (!imported.has(exported.key)) {
             imported.add(exported.key);
             pending.push(t.importDeclaration([], t.stringLiteral(exported.path)));
@@ -45,11 +49,13 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let i = 0;
                 let removed = false;
                 let stylesObj: any = {};
+                let stylesHoverObj: any = {};
                 let stylesSelectedObj: any = {};
                 let hasStyles = false;
                 let hasSelectedStyles = false;
                 let hasNormalStyles = false;
                 let hasOnlyStaticStyles = true;
+                let hasHoverStyles = false;
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
@@ -59,6 +65,11 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                     let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
                                     stylesSelectedObj[c] = a.value.value;
                                     hasSelectedStyles = true;
+                                } else if (a.name.name.startsWith('hover')) {
+                                    let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
+                                    stylesHoverObj[c] = a.value.value;
+                                    hasSelectedStyles = true;
+                                    hasHoverStyles = true;
                                 } else {
                                     stylesObj[a.name.name] = a.value.value;
                                     hasNormalStyles = true;
@@ -75,6 +86,11 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                         let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
                                         stylesSelectedObj[c] = a.value.expression.value;
                                         hasSelectedStyles = true;
+                                    } else if (a.name.name.startsWith('hover')) {
+                                        let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
+                                        stylesHoverObj[c] = a.value.expression.value;
+                                        hasSelectedStyles = true;
+                                        hasHoverStyles = true;
                                     } else {
                                         stylesObj[a.name.name] = a.value.expression.value;
                                         hasNormalStyles = true;
@@ -110,7 +126,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         key = key.replace('-', '_');
                     }
                     if (!hasSelectedStyles && hasOnlyStaticStyles) {
-                        let exported = loadStyles(stylesObj);
+                        let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
                         traversePath.node.openingElement.name = t.jsxIdentifier('div');
                         if (traversePath.node.closingElement) {
                             traversePath.node.closingElement!.name = t.jsxIdentifier('div');
@@ -121,16 +137,16 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         ))
                     } else {
                         if (hasNormalStyles) {
-                            let exported = loadStyles(stylesObj);
+
+                            let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleClassName'),
                                 t.stringLiteral(exported)
                             ))
-                            // traversePath.node.
                         }
 
                         if (hasSelectedStyles) {
-                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj });
+                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj }, stylesHoverObj, hasHoverStyles);
 
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectedClassName'),
