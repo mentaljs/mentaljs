@@ -160,7 +160,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         }
 
                         if (hasSelectedStyles) {
-                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj }, stylesHoverObj, hasHoverStyles);
+                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj }, { ...stylesHoverObj, ...stylesSelectedHoverObj }, hasHoverStyles || hasSelectedHoverStyles);
 
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectedClassName'),
