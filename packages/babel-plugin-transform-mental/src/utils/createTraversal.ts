@@ -51,11 +51,13 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let stylesObj: any = {};
                 let stylesHoverObj: any = {};
                 let stylesSelectedObj: any = {};
+                let stylesSelectedHoverObj: any = {};
                 let hasStyles = false;
                 let hasSelectedStyles = false;
                 let hasNormalStyles = false;
                 let hasOnlyStaticStyles = true;
                 let hasHoverStyles = false;
+                let hasSelectedHoverStyles = false;
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
@@ -63,7 +65,13 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                             if (a.value.type === 'StringLiteral') {
                                 if (a.name.name.startsWith('selected')) {
                                     let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
-                                    stylesSelectedObj[c] = a.value.value;
+                                    if (c.startsWith('hover')) {
+                                        c = c.substring(5, 6).toLowerCase() + c.substring(6);
+                                        hasSelectedHoverStyles = true;
+                                        stylesSelectedHoverObj[c] = a.value.value;
+                                    } else {
+                                        stylesSelectedObj[c] = a.value.value;
+                                    }
                                     hasSelectedStyles = true;
                                 } else if (a.name.name.startsWith('hover')) {
                                     let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
@@ -88,7 +96,13 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                         hasSelectedStyles = true;
                                     } else if (a.name.name.startsWith('hover')) {
                                         let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
-                                        stylesHoverObj[c] = a.value.expression.value;
+                                        if (c.startsWith('hover')) {
+                                            c = c.substring(5, 6).toLowerCase() + c.substring(6);
+                                            hasSelectedHoverStyles = true;
+                                            stylesSelectedHoverObj[c] = a.value.expression.value;
+                                        } else {
+                                            stylesSelectedObj[c] = a.value.expression.value;
+                                        }
                                         hasSelectedStyles = true;
                                         hasHoverStyles = true;
                                     } else {
