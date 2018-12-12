@@ -137,3 +137,5 @@ export const XView = (props: XViewProps) => {
         return render;
     }
 };
+
+XView.displayName = 'XView';
