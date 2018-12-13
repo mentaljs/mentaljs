@@ -453,7 +453,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         css.push(stylesCache.get(key)!);
     }
     if (borderWidth !== undefined) {
-        let key = 'border-radius: ' + borderRadius;
+        let key = 'border-width: ' + borderRadius;
         if (!stylesCache.has(key)) {
             if (borderWidth > 0) {
                 stylesCache.set(key, factory.createStyle({
