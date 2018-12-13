@@ -45,6 +45,8 @@ export interface XStyles {
     // Visual
     //
     borderRadius?: number | string | null;
+    borderWidth?: number | null;
+    borderColor?: string | null;
     level?: '1' | null;
     color?: string | null;
     cursor?: 'pointer';
@@ -118,6 +120,8 @@ export const XStyleKeys = [
     // Visual
     //
     'borderRadius',
+    'borderWidth',
+    'borderColor',
     'level',
     'color',
     'cursor',

@@ -44,6 +44,8 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
 
     let opacity: number | undefined;
     let borderRadius: number | string | undefined;
+    let borderWidth: number | undefined;
+    let borderColor: string | undefined;
     let level: '1' | undefined;
     let backgroundColor: string | undefined;
     let hoverBackgroundColor: string | undefined;
@@ -70,6 +72,12 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     if (styles.borderRadius !== undefined && styles.borderRadius !== null) {
         borderRadius = styles.borderRadius;
+    }
+    if (styles.borderWidth !== undefined && styles.borderWidth !== null) {
+        borderWidth = styles.borderWidth;
+    }
+    if (styles.borderColor !== undefined && styles.borderColor !== null) {
+        borderColor = styles.borderColor;
     }
     if (styles.backgroundColor !== undefined && styles.backgroundColor !== null) {
         backgroundColor = styles.backgroundColor;
@@ -441,6 +449,29 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let key = 'border-radius: ' + borderRadius;
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({ borderRadius: borderRadius }));
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (borderWidth !== undefined) {
+        let key = 'border-radius: ' + borderRadius;
+        if (!stylesCache.has(key)) {
+            if (borderWidth > 0) {
+                stylesCache.set(key, factory.createStyle({
+                    borderWidth: borderWidth,
+                    borderStyle: 'solid'
+                }));
+            } else {
+                stylesCache.set(key, factory.createStyle({
+                    borderWidth: 0
+                }));
+            }
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (borderColor !== undefined) {
+        let key = 'border-color: ' + borderColor;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({ borderColor: borderColor }));
         }
         css.push(stylesCache.get(key)!);
     }
