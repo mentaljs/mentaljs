@@ -104,6 +104,11 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
             hoverBackgroundColor = styles.selectedHoverBackgroundColor;
         }
     }
+    if (styles.selectedBorderColor !== undefined && styles.selectedBorderColor !== null) {
+        if (selected) {
+            borderColor = styles.selectedBorderColor;
+        }
+    }
     if (styles.color !== undefined && styles.color !== null) {
         color = styles.color;
     }

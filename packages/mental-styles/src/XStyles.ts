@@ -74,6 +74,7 @@ export interface XStyles {
     selectedColor?: string | null;
     selectedBackgroundColor?: string | null;
     selectedHoverBackgroundColor?: string | null;
+    selectedBorderColor?: string | null;
 }
 
 // Does anyone know how to automate this?
@@ -148,4 +149,5 @@ export const XStyleKeys = [
     'selectedColor',
     'selectedBackgroundColor',
     'selectedHoverBackgroundColor',
+    'selectedBorderColor',
 ];
