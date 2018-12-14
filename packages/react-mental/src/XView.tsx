@@ -16,6 +16,7 @@ export interface XViewProps extends XStyles {
 
     // State and rendering
     selected?: boolean;
+    linkStrict?: boolean;
     as?: 'div' | 'a' | 'img';
 
     // Callbacks
@@ -84,7 +85,7 @@ export const XView = React.memo((props: XViewProps) => {
             let route = React.useContext(XViewRouteContext);
             if (route) {
                 let path = normalizePath(route.path);
-                if (path === props.path) {
+                if (path === props.path || (props.linkStrict && path.startsWith(props.path + '/'))) {
                     enforceSelected = true;
                     selected = true;
                 } else {
