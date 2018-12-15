@@ -60,7 +60,7 @@ export interface XStyles {
     backgroundImage?: string | null;
     hoverBackgroundImage?: string | null;
 
-    backgroundRepeat?: 'no-repeat' | 'repeat-x' | 'repeat-y' | 'inherit' | null;
+    backgroundRepeat?: 'no-repeat' | 'repeat-x' | 'repeat-y' | null;
 
     //
     // Fonts
