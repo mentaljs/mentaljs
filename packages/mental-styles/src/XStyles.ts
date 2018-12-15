@@ -61,7 +61,6 @@ export interface XStyles {
     hoverBackgroundImage?: string | null;
 
     backgroundRepeat?: 'no-repeat' | 'repeat-x' | 'repeat-y' | 'inherit' | null;
-    backgroundSize?: string | null;
 
     //
     // Fonts
@@ -140,7 +139,6 @@ export const XStyleKeys = [
     'hoverBackgroundImage',
 
     'backgroundRepeat',
-    'backgroundSize',
 
     //
     // Fonts

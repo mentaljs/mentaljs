@@ -52,7 +52,6 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let backgroundImage: string | undefined;
     let hoverBackgroundImage: string | undefined;
     let backgroundRepeat: 'no-repeat' | 'repeat-x' | 'repeat-y' | 'inherit' | undefined;
-    let backgroundSize: string | undefined;
     let color: string | undefined;
     let hoverColor: string | undefined;
     let cursor: 'pointer' | undefined;
@@ -96,9 +95,6 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     if (styles.backgroundRepeat !== undefined && styles.backgroundRepeat !== null) {
         backgroundRepeat = styles.backgroundRepeat;
-    }
-    if (styles.backgroundSize !== undefined && styles.backgroundSize !== null) {
-        backgroundSize = styles.backgroundSize;
     }
     if (styles.selectedBackgroundColor !== undefined && styles.selectedBackgroundColor !== null) {
         if (selected) {
@@ -529,13 +525,6 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let key = 'background-repeat: ' + backgroundRepeat;
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({ backgroundRepeat: backgroundRepeat }));
-        }
-        css.push(stylesCache.get(key)!);
-    }
-    if (backgroundSize !== undefined) {
-        let key = 'background-size: ' + backgroundSize;
-        if (!stylesCache.has(key)) {
-            stylesCache.set(key, factory.createStyle({ backgroundSize: backgroundSize }));
         }
         css.push(stylesCache.get(key)!);
     }
