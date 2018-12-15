@@ -5,8 +5,8 @@ import * as mkdirp from 'mkdirp';
 import { extractStyles } from 'mental-styles';
 
 export function exportStyles(styles: any) {
-    let st = extractStyles(styles);
-    let cssValue = cssFor(st);
+    styles = extractStyles(styles);
+    let cssValue = cssFor(styles);
     let fname = css(styles).toString();
     let root = path.join(process.cwd(), 'node_modules', '.cache', 'mentaljs', 'styles');
     let fpath = path.join(root, fname) + '.css';
