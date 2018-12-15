@@ -76,11 +76,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                         let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
                                         stylesSelectedObj[c] = a.value.expression.value;
                                         hasSelectedStyles = true;
-                                    } else if (a.name.name.startsWith('hover')) {
-                                        let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
-                                        stylesSelectedObj[c] = a.value.expression.value;
-                                        hasSelectedStyles = true;
-                                    } else {
+                                    }  else {
                                         stylesObj[a.name.name] = a.value.expression.value;
                                         hasNormalStyles = true;
                                     }
