@@ -51,7 +51,9 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let hoverBackgroundColor: string | undefined;
     let backgroundImage: string | undefined;
     let hoverBackgroundImage: string | undefined;
+    let backgroundRepeat: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | undefined;
     let color: string | undefined;
+    let hoverColor: string | undefined;
     let cursor: 'pointer' | undefined;
 
     let fontSize: number | undefined;
@@ -91,8 +93,8 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     if (styles.hoverBackgroundImage !== undefined && styles.hoverBackgroundImage !== null) {
         hoverBackgroundImage = styles.hoverBackgroundImage;
     }
-    if (styles.hoverBackgroundColor !== undefined && styles.hoverBackgroundColor !== null) {
-        hoverBackgroundColor = styles.hoverBackgroundColor;
+    if (styles.backgroundRepeat !== undefined && styles.backgroundRepeat !== null) {
+        backgroundRepeat = styles.backgroundRepeat;
     }
     if (styles.selectedBackgroundColor !== undefined && styles.selectedBackgroundColor !== null) {
         if (selected) {
@@ -111,6 +113,9 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     if (styles.color !== undefined && styles.color !== null) {
         color = styles.color;
+    }
+    if (styles.hoverColor !== undefined && styles.hoverColor !== null) {
+        hoverColor = styles.hoverColor;
     }
     if (styles.selectedColor !== undefined && styles.selectedColor !== null) {
         if (selected) {
@@ -510,9 +515,16 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({
                 '&:hover, &:focus': {
-                    hoverBackgroundImage: hoverBackgroundImage
+                    backgroundImage: hoverBackgroundImage
                 }
             }).toString());
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (backgroundRepeat !== undefined) {
+        let key = 'background-repeat: ' + backgroundRepeat;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({ backgroundRepeat: backgroundRepeat }));
         }
         css.push(stylesCache.get(key)!);
     }
@@ -520,6 +532,17 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let key = 'color: ' + color;
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({ color: color }));
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (hoverColor !== undefined) {
+        let key = 'hover-color: ' + hoverColor;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({
+                '&:hover, &:focus': {
+                    color: hoverColor
+                }
+            }).toString());
         }
         css.push(stylesCache.get(key)!);
     }
