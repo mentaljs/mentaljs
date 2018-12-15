@@ -1,6 +1,6 @@
 import { stylesMap } from "./stylesMap";
 
-export function extractRules(src: any, modifier?: string) {
+export function extractRules(src: any) {
     let rules: any[] = [];
     for (let k of Object.keys(src)) {
         if (stylesMap[k]) {

@@ -1,8 +1,8 @@
 import * as t from '@babel/types';
-import { XStyleKeys } from 'mental-styles'; // Do not use absolute path
 import { VisitNodeObject, NodePath } from '@babel/traverse';
 import { KeyGenerator } from './KeyGenerator';
-import { extractStyles } from './exportStyles';
+import { exportStyles } from './exportStyles';
+import { isValidStyleProp } from 'mental-styles';
 
 export function createTraversal(keyGenerator: KeyGenerator) {
     let isImported = false;
@@ -10,12 +10,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
     let body: t.Statement[] = [];
     let pending: t.Statement[] = [];
     let imported = new Set<string>();
-    function loadStyles(src: any, hover: any, hasHover: boolean) {
-        let st = src;
-        if (hasHover) {
-            st = { ...src, '&:hover, &:focus': hover };
-        }
-        let exported = extractStyles(st);
+    function loadStyles(src: any) {
+        let exported = exportStyles(src);
         if (!imported.has(exported.key)) {
             imported.add(exported.key);
             pending.push(t.importDeclaration([], t.stringLiteral(exported.path)));
@@ -49,37 +45,21 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let i = 0;
                 let removed = false;
                 let stylesObj: any = {};
-                let stylesHoverObj: any = {};
                 let stylesSelectedObj: any = {};
-                let stylesSelectedHoverObj: any = {};
                 let hasStyles = false;
                 let hasSelectedStyles = false;
                 let hasNormalStyles = false;
                 let hasOnlyStaticStyles = true;
-                let hasHoverStyles = false;
-                let hasSelectedHoverStyles = false;
-                let hasAsProps = false;
                 let asProp: string = 'div';
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
-                        if (XStyleKeys.findIndex((v) => v === (a as any).name.name) >= 0) {
+                        if (isValidStyleProp(a.name.name)) {
                             if (a.value.type === 'StringLiteral') {
                                 if (a.name.name.startsWith('selected')) {
                                     let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
-                                    if (c.startsWith('hover')) {
-                                        c = c.substring(5, 6).toLowerCase() + c.substring(6);
-                                        hasSelectedHoverStyles = true;
-                                        stylesSelectedHoverObj[c] = a.value.value;
-                                    } else {
-                                        stylesSelectedObj[c] = a.value.value;
-                                    }
+                                    stylesSelectedObj[c] = a.value.value;
                                     hasSelectedStyles = true;
-                                } else if (a.name.name.startsWith('hover')) {
-                                    let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
-                                    stylesHoverObj[c] = a.value.value;
-                                    hasSelectedStyles = true;
-                                    hasHoverStyles = true;
                                 } else {
                                     stylesObj[a.name.name] = a.value.value;
                                     hasNormalStyles = true;
@@ -98,15 +78,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                         hasSelectedStyles = true;
                                     } else if (a.name.name.startsWith('hover')) {
                                         let c = a.name.name.substring(5, 6).toLowerCase() + a.name.name.substring(6);
-                                        if (c.startsWith('hover')) {
-                                            c = c.substring(5, 6).toLowerCase() + c.substring(6);
-                                            hasSelectedHoverStyles = true;
-                                            stylesSelectedHoverObj[c] = a.value.expression.value;
-                                        } else {
-                                            stylesSelectedObj[c] = a.value.expression.value;
-                                        }
+                                        stylesSelectedObj[c] = a.value.expression.value;
                                         hasSelectedStyles = true;
-                                        hasHoverStyles = true;
                                     } else {
                                         stylesObj[a.name.name] = a.value.expression.value;
                                         hasNormalStyles = true;
@@ -134,7 +107,6 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                             }
                             if (a.name.name === 'as') {
                                 if (a.value.type === 'StringLiteral') {
-                                    hasAsProps = true;
                                     asProp = a.value.value;
                                 } else {
                                     hasOnlyStaticStyles = false;
@@ -154,7 +126,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         key = key.replace('-', '_');
                     }
                     if (!hasSelectedStyles && hasOnlyStaticStyles) {
-                        let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
+                        let exported = loadStyles(stylesObj);
                         traversePath.node.openingElement.name = t.jsxIdentifier(asProp);
                         if (traversePath.node.closingElement) {
                             traversePath.node.closingElement!.name = t.jsxIdentifier(asProp);
@@ -166,7 +138,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                     } else {
                         if (hasNormalStyles) {
 
-                            let exported = loadStyles(stylesObj, stylesHoverObj, hasHoverStyles);
+                            let exported = loadStyles(stylesObj);
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleClassName'),
                                 t.stringLiteral(exported)
@@ -174,7 +146,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                         }
 
                         if (hasSelectedStyles) {
-                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj }, { ...stylesHoverObj, ...stylesSelectedHoverObj }, hasHoverStyles || hasSelectedHoverStyles);
+                            let exported = loadStyles({ ...stylesObj, ...stylesSelectedObj });
 
                             traversePath.node.openingElement.attributes.push(t.jsxAttribute(
                                 t.jsxIdentifier('__styleSelectedClassName'),

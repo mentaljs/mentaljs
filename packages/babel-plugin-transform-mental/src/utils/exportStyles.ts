@@ -2,12 +2,10 @@ import { cssFor, css } from 'glamor';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
+import { extractStyles } from 'mental-styles';
 
-export function extractStyles(styles: any) {
-    let st = styles;
-    if (st.borderWidth && st.borderWidth > 0) {
-        st.borderStyle = 'solid';
-    }
+export function exportStyles(styles: any) {
+    let st = extractStyles(styles);
     let cssValue = cssFor(st);
     let fname = css(styles).toString();
     let root = path.join(process.cwd(), 'node_modules', '.cache', 'mentaljs', 'styles');

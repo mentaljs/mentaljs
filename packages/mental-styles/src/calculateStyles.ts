@@ -11,12 +11,14 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     const factory = XStyleFactoryRegistry.factory;
 
     // Load styles
-    let src = prepareStyles(styles);
-    let srcHover = extractModifier('hover', src);
+    let src = styles;
+    let srcHover = extractModifier('hover', styles);
     if (selected) {
-        src = { ...src, ...extractModifier('selected', src) };
-        srcHover = { ...srcHover, ...extractModifier('selectedHover', src) };
+        src = prepareStyles({ ...src, ...extractModifier('selected', styles) });
+        srcHover = prepareStyles({ ...srcHover, ...extractModifier('selectedHover', styles) });
     }
+    src = prepareStyles(src);
+    srcHover = prepareStyles(srcHover);
 
     // Building CSS class names
     let css: string[] = ['x'];
@@ -32,7 +34,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     for (let k of Object.keys(srcHover)) {
         if (stylesMap[k]) {
-            let v = src[k];
+            let v = srcHover[k];
             let key = 'hover-' + k + ': ' + v;
             if (!stylesCache.has(key)) {
                 stylesCache.set(key, factory.createStyle({

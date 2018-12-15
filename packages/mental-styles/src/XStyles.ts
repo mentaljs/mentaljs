@@ -1,13 +1,5 @@
-export interface XStyles {
-
-    //
-    // Position
-    //
+interface XStylesBase {
     position?: 'relative' | 'absolute' | 'fixed' | null;
-
-    //
-    // Flex
-    //
     flexGrow?: number | null;
     flexShrink?: number | null;
     flexBasis?: number | null;
@@ -15,15 +7,13 @@ export interface XStyles {
     alignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
-
-    //
-    // Sizing
-    //
     top?: number | null;
     bottom?: number | null;
     left?: number | null;
     right?: number | null;
     margin?: number | null;
+    marginVertical?: number | null;
+    marginHorizontal?: number | null;
     marginTop?: number | null;
     marginBottom?: number | null;
     marginLeft?: number | null;
@@ -40,121 +30,170 @@ export interface XStyles {
     maxHeight?: number | string | null;
     maxWidth?: number | string | null;
     zIndex?: number | null;
-
-    //
-    // Visual
-    //
     borderRadius?: number | string | null;
     borderWidth?: number | null;
     borderColor?: string | null;
-    level?: '1' | null;
     cursor?: 'pointer';
     opacity?: number;
-
     color?: string | null;
-    hoverColor?: string | null;
-
     backgroundColor?: string | null;
-    hoverBackgroundColor?: string | null;
-
     backgroundImage?: string | null;
-    hoverBackgroundImage?: string | null;
-
     backgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
-
-    //
-    // Fonts
-    //
     fontSize?: number | null;
     fontWeight?: '400' | '600';
     lineHeight?: number | string | null;
     overflow?: 'hidden' | null;
     textOverflow?: 'ellipsis' | null;
     whiteSpace?: 'nowrap' | null;
-
-    //
-    // Selection
-    //
-    selectedColor?: string | null;
-    selectedBackgroundColor?: string | null;
-    selectedHoverBackgroundColor?: string | null;
-    selectedBorderColor?: string | null;
 }
 
-// Does anyone know how to automate this?
-export const XStyleKeys = [
-    'position',
+interface XStylesHover {
+    hoverPosition?: 'relative' | 'absolute' | 'fixed' | null;
+    hoverFlexGrow?: number | null;
+    hoverFlexShrink?: number | null;
+    hoverFlexBasis?: number | null;
+    hoverFlexDirection?: 'row' | 'column' | null;
+    hoverAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    hoverAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    hoverJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
+    hoverTop?: number | null;
+    hoverBottom?: number | null;
+    hoverLeft?: number | null;
+    hoverRight?: number | null;
+    hoverMargin?: number | null;
+    hoverMarginVertical?: number | null;
+    hoverMarginHorizontal?: number | null;
+    hoverMarginTop?: number | null;
+    hoverMarginBottom?: number | null;
+    hoverMarginLeft?: number | null;
+    hoverMarginRight?: number | null;
+    hoverPadding?: number | null;
+    hoverPaddingTop?: number | null;
+    hoverPaddingBottom?: number | null;
+    hoverPaddingLeft?: number | null;
+    hoverPaddingRight?: number | null;
+    hoverHeight?: number | string | null;
+    hoverWidth?: number | string | null;
+    hoverMinHeight?: number | string | null;
+    hoverMinWidth?: number | string | null;
+    hoverMaxHeight?: number | string | null;
+    hoverMaxWidth?: number | string | null;
+    hoverZIndex?: number | null;
+    hoverBorderRadius?: number | string | null;
+    hoverBorderWidth?: number | null;
+    hoverBorderColor?: string | null;
+    hoverCursor?: 'pointer';
+    hoverOpacity?: number;
+    hoverColor?: string | null;
+    hoverBackgroundColor?: string | null;
+    hoverBackgroundImage?: string | null;
+    hoverBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
+    hoverFontSize?: number | null;
+    hoverFontWeight?: '400' | '600';
+    hoverLineHeight?: number | string | null;
+    hoverOverflow?: 'hidden' | null;
+    hoverTextOverflow?: 'ellipsis' | null;
+    hoverWhiteSpace?: 'nowrap' | null;
+}
 
-    //
-    // Flex
-    //
-    'flexGrow',
-    'flexShrink',
-    'flexBasis',
-    'flexDirection',
-    'alignSelf',
-    'alignItems',
-    'justifyContent',
+interface XStylesSelected {
+    selectedPosition?: 'relative' | 'absolute' | 'fixed' | null;
+    selectedFlexGrow?: number | null;
+    selectedFlexShrink?: number | null;
+    selectedFlexBasis?: number | null;
+    selectedFlexDirection?: 'row' | 'column' | null;
+    selectedAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    selectedAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    selectedJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
+    selectedTop?: number | null;
+    selectedBottom?: number | null;
+    selectedLeft?: number | null;
+    selectedRight?: number | null;
+    selectedMargin?: number | null;
+    selectedMarginVertical?: number | null;
+    selectedMarginHorizontal?: number | null;
+    selectedMarginTop?: number | null;
+    selectedMarginBottom?: number | null;
+    selectedMarginLeft?: number | null;
+    selectedMarginRight?: number | null;
+    selectedPadding?: number | null;
+    selectedPaddingTop?: number | null;
+    selectedPaddingBottom?: number | null;
+    selectedPaddingLeft?: number | null;
+    selectedPaddingRight?: number | null;
+    selectedHeight?: number | string | null;
+    selectedWidth?: number | string | null;
+    selectedMinHeight?: number | string | null;
+    selectedMinWidth?: number | string | null;
+    selectedMaxHeight?: number | string | null;
+    selectedMaxWidth?: number | string | null;
+    selectedZIndex?: number | null;
+    selectedBorderRadius?: number | string | null;
+    selectedBorderWidth?: number | null;
+    selectedBorderColor?: string | null;
+    selectedCursor?: 'pointer';
+    selectedOpacity?: number;
+    selectedColor?: string | null;
+    selectedBackgroundColor?: string | null;
+    selectedBackgroundImage?: string | null;
+    selectedBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
+    selectedFontSize?: number | null;
+    selectedFontWeight?: '400' | '600';
+    selectedLineHeight?: number | string | null;
+    selectedOverflow?: 'hidden' | null;
+    selectedTextOverflow?: 'ellipsis' | null;
+    selectedWhiteSpace?: 'nowrap' | null;
+}
 
-    //
-    // Sizing
-    //
-    'top',
-    'bottom',
-    'left',
-    'right',
-    'margin',
-    'marginTop',
-    'marginBottom',
-    'marginLeft',
-    'marginRight',
-    'padding',
-    'paddingTop',
-    'paddingBottom',
-    'paddingLeft',
-    'paddingRight',
-    'height',
-    'width',
-    'minHeight',
-    'minWidth',
-    'maxHeight',
-    'maxWidth',
-    'zIndex',
+interface XStylesSelectedHover {
+    selectedHoverPosition?: 'relative' | 'absolute' | 'fixed' | null;
+    selectedHoverFlexGrow?: number | null;
+    selectedHoverFlexShrink?: number | null;
+    selectedHoverFlexBasis?: number | null;
+    selectedHoverFlexDirection?: 'row' | 'column' | null;
+    selectedHoverAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    selectedHoverAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
+    selectedHoverJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
+    selectedHoverTop?: number | null;
+    selectedHoverBottom?: number | null;
+    selectedHoverLeft?: number | null;
+    selectedHoverRight?: number | null;
+    selectedHoverMargin?: number | null;
+    selectedHoverMarginVertical?: number | null;
+    selectedHoversMarginHorizontal?: number | null;
+    selectedHoverMarginTop?: number | null;
+    selectedHoverMarginBottom?: number | null;
+    selectedHoverMarginLeft?: number | null;
+    selectedHoverMarginRight?: number | null;
+    selectedHoverPadding?: number | null;
+    selectedHoverPaddingTop?: number | null;
+    selectedHoverPaddingBottom?: number | null;
+    selectedHoverPaddingLeft?: number | null;
+    selectedHoverPaddingRight?: number | null;
+    selectedHoverHeight?: number | string | null;
+    selectedHoverWidth?: number | string | null;
+    selectedHoverMinHeight?: number | string | null;
+    selectedHoverMinWidth?: number | string | null;
+    selectedHoverMaxHeight?: number | string | null;
+    selectedHoverMaxWidth?: number | string | null;
+    selectedHoverZIndex?: number | null;
+    selectedHoverBorderRadius?: number | string | null;
+    selectedHoverBorderWidth?: number | null;
+    selectedHoverBorderColor?: string | null;
+    selectedHoverCursor?: 'pointer';
+    selectedHoverOpacity?: number;
+    selectedHoverColor?: string | null;
+    selectedHoverBackgroundColor?: string | null;
+    selectedHoverBackgroundImage?: string | null;
+    selectedHoverBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
+    selectedHoverFontSize?: number | null;
+    selectedHoverFontWeight?: '400' | '600';
+    selectedHoverLineHeight?: number | string | null;
+    selectedHoverOverflow?: 'hidden' | null;
+    selectedHoverTextOverflow?: 'ellipsis' | null;
+    selectedHoverWhiteSpace?: 'nowrap' | null;
+}
 
-    //
-    // Visual
-    //
-    'borderRadius',
-    'borderWidth',
-    'borderColor',
-    'level',
-    'cursor',
-    'opacity',
+export interface XStyles extends XStylesBase, XStylesHover, XStylesSelected, XStylesSelectedHover {
 
-    'color',
-    'hoverColor',
-    'backgroundColor',
-    'hoverBackgroundColor',
-    'backgroundImage',
-    'hoverBackgroundImage',
-
-    'backgroundRepeat',
-
-    //
-    // Fonts
-    //
-    'fontSize',
-    'fontWeight',
-    'lineHeight',
-    'overflow',
-    'textOverflow',
-    'whiteSpace',
-
-    //
-    // Selection
-    //
-    'selectedColor',
-    'selectedBackgroundColor',
-    'selectedHoverBackgroundColor',
-    'selectedBorderColor',
-];
+};

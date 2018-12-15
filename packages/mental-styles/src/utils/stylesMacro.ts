@@ -1,3 +1,9 @@
+export const stylesMacroFields = {
+    margin: 1,
+    marginVertical: 1,
+    marginHorizontal: 1,
+};
+
 export const stylesMacro: ((src: any) => void)[] = [
     (src) => {
         if (src.marginVertical !== undefined && src.marginVertical !== null) {
