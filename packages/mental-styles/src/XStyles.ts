@@ -48,9 +48,11 @@ export interface XStyles {
     borderWidth?: number | null;
     borderColor?: string | null;
     level?: '1' | null;
-    color?: string | null;
     cursor?: 'pointer';
     opacity?: number;
+
+    color?: string | null;
+    hoverColor?: string | null;
 
     backgroundColor?: string | null;
     hoverBackgroundColor?: string | null;
@@ -127,10 +129,11 @@ export const XStyleKeys = [
     'borderWidth',
     'borderColor',
     'level',
-    'color',
     'cursor',
     'opacity',
 
+    'color',
+    'hoverColor',
     'backgroundColor',
     'hoverBackgroundColor',
     'backgroundImage',

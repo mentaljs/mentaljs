@@ -54,6 +54,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let backgroundRepeat: string | undefined;
     let backgroundSize: string | undefined;
     let color: string | undefined;
+    let hoverColor: string | undefined;
     let cursor: 'pointer' | undefined;
 
     let fontSize: number | undefined;
@@ -116,6 +117,9 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     }
     if (styles.color !== undefined && styles.color !== null) {
         color = styles.color;
+    }
+    if (styles.hoverColor !== undefined && styles.hoverColor !== null) {
+        hoverColor = styles.hoverColor;
     }
     if (styles.selectedColor !== undefined && styles.selectedColor !== null) {
         if (selected) {
@@ -539,6 +543,17 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let key = 'color: ' + color;
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({ color: color }));
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (hoverColor !== undefined) {
+        let key = 'hover-color: ' + hoverColor;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({
+                '&:hover, &:focus': {
+                    color: hoverColor
+                }
+            }).toString());
         }
         css.push(stylesCache.get(key)!);
     }
