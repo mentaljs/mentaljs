@@ -51,7 +51,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let hoverBackgroundColor: string | undefined;
     let backgroundImage: string | undefined;
     let hoverBackgroundImage: string | undefined;
-    let backgroundRepeat: string | undefined;
+    let backgroundRepeat: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | 'inherit' | undefined;
     let backgroundSize: string | undefined;
     let color: string | undefined;
     let hoverColor: string | undefined;

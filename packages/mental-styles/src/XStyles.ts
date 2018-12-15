@@ -60,7 +60,7 @@ export interface XStyles {
     backgroundImage?: string | null;
     hoverBackgroundImage?: string | null;
 
-    backgroundRepeat?: string | null;
+    backgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | 'inherit' | null;
     backgroundSize?: string | null;
 
     //
