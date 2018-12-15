@@ -2,11 +2,11 @@
 
 exports[`babel should extract static styles 1`] = `
 "import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-2hbptg.css\\";
+import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-qtc31w.css\\";
 export class Bar extends React.Component {
   render() {
     let a = 1;
-    return <XView marginTop={a} __styleClassName=\\"css-2hbptg\\">
+    return <XView marginTop={a} __styleClassName=\\"css-qtc31w\\">
                             Hello!
                         </XView>;
   }
@@ -16,12 +16,12 @@ export class Bar extends React.Component {
 
 exports[`babel should ignore keys and callbacks 1`] = `
 "import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-1sfmjf6.css\\";
+import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
 export class Bar extends React.Component {
   callback = () => {};
 
   render() {
-    return <div key=\\"key\\" onMouseDown={this.callback} onMouseUp={this.callback} onClick={this.callback} className=\\"x css-1sfmjf6\\">
+    return <div key=\\"key\\" onMouseDown={this.callback} onMouseUp={this.callback} onClick={this.callback} className=\\"x css-17haofa\\">
                         Hello!
                     </div>;
   }
@@ -31,10 +31,10 @@ export class Bar extends React.Component {
 
 exports[`babel should replace with static div for static-only views 1`] = `
 "import { calculateStyles } from \\"openland-x-styles/calculateStyles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-1sfmjf6.css\\";
+import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
 export class Bar extends React.Component {
   render() {
-    return <div className=\\"x css-1sfmjf6\\">
+    return <div className=\\"x css-17haofa\\">
                             Hello!
                         </div>;
   }
