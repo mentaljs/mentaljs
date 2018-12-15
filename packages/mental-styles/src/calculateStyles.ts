@@ -519,7 +519,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({
                 '&:hover, &:focus': {
-                    hoverBackgroundImage: hoverBackgroundImage
+                    backgroundImage: hoverBackgroundImage
                 }
             }).toString());
         }
