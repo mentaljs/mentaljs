@@ -16,6 +16,7 @@
     "release": "yarn build && yarn jest && yarn lerna publish --force-publish"
   },
   "dependencies": {
+    "@storybook/react": "^4.1.1",
     "@types/jest": "^23.3.10",
     "@types/react": "^16.7.13",
     "jest": "^23.6.0",
