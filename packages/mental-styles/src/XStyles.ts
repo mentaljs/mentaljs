@@ -58,6 +58,9 @@ export interface XStyles {
     backgroundImage?: string | null;
     hoverBackgroundImage?: string | null;
 
+    backgroundRepeat?: string | null;
+    backgroundSize?: string | null;
+
     //
     // Fonts
     //
@@ -132,6 +135,9 @@ export const XStyleKeys = [
     'hoverBackgroundColor',
     'backgroundImage',
     'hoverBackgroundImage',
+
+    'backgroundRepeat',
+    'backgroundSize',
 
     //
     // Fonts

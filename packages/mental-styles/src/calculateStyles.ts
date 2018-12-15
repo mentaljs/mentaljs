@@ -51,6 +51,8 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     let hoverBackgroundColor: string | undefined;
     let backgroundImage: string | undefined;
     let hoverBackgroundImage: string | undefined;
+    let backgroundRepeat: string | undefined;
+    let backgroundSize: string | undefined;
     let color: string | undefined;
     let cursor: 'pointer' | undefined;
 
@@ -91,8 +93,11 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
     if (styles.hoverBackgroundImage !== undefined && styles.hoverBackgroundImage !== null) {
         hoverBackgroundImage = styles.hoverBackgroundImage;
     }
-    if (styles.hoverBackgroundColor !== undefined && styles.hoverBackgroundColor !== null) {
-        hoverBackgroundColor = styles.hoverBackgroundColor;
+    if (styles.backgroundRepeat !== undefined && styles.backgroundRepeat !== null) {
+        backgroundRepeat = styles.backgroundRepeat;
+    }
+    if (styles.backgroundSize !== undefined && styles.backgroundSize !== null) {
+        backgroundSize = styles.backgroundSize;
     }
     if (styles.selectedBackgroundColor !== undefined && styles.selectedBackgroundColor !== null) {
         if (selected) {
@@ -513,6 +518,20 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
                     hoverBackgroundImage: hoverBackgroundImage
                 }
             }).toString());
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (backgroundRepeat !== undefined) {
+        let key = 'background-repeat: ' + backgroundRepeat;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({ backgroundRepeat: backgroundRepeat }));
+        }
+        css.push(stylesCache.get(key)!);
+    }
+    if (backgroundSize !== undefined) {
+        let key = 'background-size: ' + backgroundSize;
+        if (!stylesCache.has(key)) {
+            stylesCache.set(key, factory.createStyle({ backgroundSize: backgroundSize }));
         }
         css.push(stylesCache.get(key)!);
     }
