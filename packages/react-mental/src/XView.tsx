@@ -127,7 +127,7 @@ export const XView = React.memo((props: XViewProps) => {
         );
     } else if (props.as === 'img') {
         render = (
-            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.src} />
+            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.srcSet} />
         )
     } else {
         render = (
