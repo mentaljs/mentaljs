@@ -9,7 +9,11 @@ export function prepareStyles(src: any) {
     let res: any = {};
     for (let k of Object.keys(src)) {
         if (stylesMap[k]) {
-            res[k] = src[k];
+            let computedStyles = stylesMap[k](src[k]);
+
+            for (let l of Object.keys(computedStyles)) {
+                res[l] = computedStyles[l];
+            }
         }
     }
     return res;

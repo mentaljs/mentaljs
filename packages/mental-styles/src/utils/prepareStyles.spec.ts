@@ -21,4 +21,10 @@ describe('prepareStyles', () => {
         expect(res.marginRight).toBe(10);
         expect(res.marginLeft).toBe(10);
     });
+    it('should add borderStyle', () => {
+        let res = prepareStyles({ borderWidth: 2 });
+        expect(Object.keys(res).length).toBe(2);
+        expect(res.borderWidth).toBe(2);
+        expect(res.borderStyle).toBe('solid');
+    });
 });
