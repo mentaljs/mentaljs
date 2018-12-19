@@ -23,6 +23,8 @@ interface XStylesBase {
     marginLeft?: number | null;
     marginRight?: number | null;
     padding?: number | null;
+    paddingVertical?: number | null;
+    paddingHorizontal?: number | null;
     paddingTop?: number | null;
     paddingBottom?: number | null;
     paddingLeft?: number | null;
@@ -73,6 +75,8 @@ interface XStylesHover {
     hoverMarginLeft?: number | null;
     hoverMarginRight?: number | null;
     hoverPadding?: number | null;
+    hoverPaddingVertical?: number | null;
+    hoverPaddingHorizontal?: number | null;
     hoverPaddingTop?: number | null;
     hoverPaddingBottom?: number | null;
     hoverPaddingLeft?: number | null;
@@ -123,6 +127,8 @@ interface XStylesSelected {
     selectedMarginLeft?: number | null;
     selectedMarginRight?: number | null;
     selectedPadding?: number | null;
+    selectedPaddingVertical?: number | null;
+    selectedPaddingHorizontal?: number | null;
     selectedPaddingTop?: number | null;
     selectedPaddingBottom?: number | null;
     selectedPaddingLeft?: number | null;
@@ -173,6 +179,8 @@ interface XStylesSelectedHover {
     selectedHoverMarginLeft?: number | null;
     selectedHoverMarginRight?: number | null;
     selectedHoverPadding?: number | null;
+    selectedHoverPaddingVertical?: number | null;
+    selectedHoverPaddingHorizontal?: number | null;
     selectedHoverPaddingTop?: number | null;
     selectedHoverPaddingBottom?: number | null;
     selectedHoverPaddingLeft?: number | null;
