@@ -51,6 +51,8 @@ interface XStylesBase {
     overflow?: 'hidden' | null;
     textOverflow?: 'ellipsis' | null;
     whiteSpace?: 'nowrap' | null;
+    textDecoration?: 'underline' | null;
+    textDecorationColor?: string | null;
 }
 
 interface XStylesHover {
@@ -103,6 +105,8 @@ interface XStylesHover {
     hoverOverflow?: 'hidden' | null;
     hoverTextOverflow?: 'ellipsis' | null;
     hoverWhiteSpace?: 'nowrap' | null;
+    hoverTextDecoration?: 'underline' | null;
+    hoverTextDecorationColor?: string | null;
 }
 
 interface XStylesSelected {
@@ -155,6 +159,8 @@ interface XStylesSelected {
     selectedOverflow?: 'hidden' | null;
     selectedTextOverflow?: 'ellipsis' | null;
     selectedWhiteSpace?: 'nowrap' | null;
+    selectedTextDecoration?: 'underline' | null;
+    selectedTextDecorationColor?: string | null;
 }
 
 interface XStylesSelectedHover {
@@ -207,6 +213,8 @@ interface XStylesSelectedHover {
     selectedHoverOverflow?: 'hidden' | null;
     selectedHoverTextOverflow?: 'ellipsis' | null;
     selectedHoverWhiteSpace?: 'nowrap' | null;
+    selectedHoverTextDecoration?: 'underline' | null;
+    selectedHoverTextDecorationColor?: string | null;
 }
 
 export interface XStyles extends XStylesBase, XStylesHover, XStylesSelected, XStylesSelectedHover {
