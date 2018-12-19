@@ -50,5 +50,8 @@ export const stylesMap = {
     fontWeight: (v: '400' | '600') => ({ fontWeight: v }),
     lineHeight: (v: number | string) => ({ lineHeight: v }),
     textOverflow: (v: 'ellipsis') => ({ textOverflow: v }),
-    whiteSpace: (v: 'nowrap') => ({ whiteSpace: v })
+    whiteSpace: (v: 'nowrap') => ({ whiteSpace: v }),
+
+    // Animations
+    transition: (v: string) => ({ transition: v })
 };

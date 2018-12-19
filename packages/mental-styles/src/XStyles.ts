@@ -1,4 +1,7 @@
 interface XStylesBase {
+
+    transition?: string | null;
+
     position?: 'relative' | 'absolute' | 'fixed' | null;
     flexGrow?: number | null;
     flexShrink?: number | null;
