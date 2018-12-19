@@ -8,6 +8,7 @@ export const stylesMap = {
     alignSelf: (v: 'flex-start' | 'flex-end' | 'center' | 'stretch') => ({ alignSelf: v }),
     alignItems: (v: 'flex-start' | 'flex-end' | 'center' | 'stretch') => ({ alignItems: v }),
     justifyContent: (v: 'flex-start' | 'flex-end' | 'center' | 'space-between') => ({ justifyContent: v }),
+    flexWrap: (v: 'wrap' | 'nowrap') => ({ flexWrap: v }),
 
     // Layouting
     position: (v: 'relative' | 'absolute' | 'fixed') => ({ position: v }),

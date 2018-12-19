@@ -7,6 +7,7 @@ interface XStylesBase {
     flexShrink?: number | null;
     flexBasis?: number | null;
     flexDirection?: 'row' | 'column' | null;
+    flexWrap?: 'wrap' | 'nowrap' | null;
     alignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
@@ -56,6 +57,7 @@ interface XStylesHover {
     hoverFlexShrink?: number | null;
     hoverFlexBasis?: number | null;
     hoverFlexDirection?: 'row' | 'column' | null;
+    hoverFlexWrap?: 'wrap' | 'nowrap' | null;
     hoverAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     hoverAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     hoverJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
@@ -108,6 +110,7 @@ interface XStylesSelected {
     selectedAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     selectedAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     selectedJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
+    selectedFlexWrap?: 'wrap' | 'nowrap' | null;
     selectedTop?: number | null;
     selectedBottom?: number | null;
     selectedLeft?: number | null;
@@ -157,6 +160,7 @@ interface XStylesSelectedHover {
     selectedHoverAlignSelf?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     selectedHoverAlignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | null;
     selectedHoverJustifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | null;
+    selectedHoverFlexWrap?: 'wrap' | 'nowrap' | null;
     selectedHoverTop?: number | null;
     selectedHoverBottom?: number | null;
     selectedHoverLeft?: number | null;
