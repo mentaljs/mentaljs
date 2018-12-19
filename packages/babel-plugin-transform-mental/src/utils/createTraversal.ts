@@ -38,7 +38,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
         },
         JSXElement: {
             enter(traversePath: NodePath<t.JSXElement>) {
-                if ((traversePath.node.openingElement.name as t.JSXIdentifier).name !== 'XView') {
+                let typename = (traversePath.node.openingElement.name as t.JSXIdentifier).name;
+                if (typename !== 'XView' && typename !== 'XImage') {
                     return;
                 }
                 let attrs = [...traversePath.node.openingElement.attributes];
@@ -50,7 +51,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                 let hasSelectedStyles = false;
                 let hasNormalStyles = false;
                 let hasOnlyStaticStyles = true;
-                let asProp: string = 'div';
+                let asProp: string = typename === 'XImage' ? 'img' : 'div';
                 for (let a of attrs) {
                     removed = false;
                     if (a.type === 'JSXAttribute' && a.name.type === 'JSXIdentifier' && a.value) {
@@ -76,7 +77,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                         let c = a.name.name.substring(8, 9).toLowerCase() + a.name.name.substring(9);
                                         stylesSelectedObj[c] = a.value.expression.value;
                                         hasSelectedStyles = true;
-                                    }  else {
+                                    } else {
                                         stylesObj[a.name.name] = a.value.expression.value;
                                         hasNormalStyles = true;
                                     }
