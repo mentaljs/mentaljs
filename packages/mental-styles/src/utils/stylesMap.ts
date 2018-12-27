@@ -52,7 +52,7 @@ export const stylesMap = {
     lineHeight: (v: number | string) => ({ lineHeight: v }),
     textOverflow: (v: 'ellipsis') => ({ textOverflow: v }),
     whiteSpace: (v: 'nowrap') => ({ whiteSpace: v }),
-    textDecoration: (v: 'underline') => ({ textDecoration: v }),
+    textDecoration: (v: 'none' | 'underline') => ({ textDecoration: v }),
     textDecorationColor: (v: string) => ({ textDecorationColor: v }),
 
     // Animations
