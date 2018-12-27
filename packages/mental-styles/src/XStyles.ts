@@ -51,7 +51,7 @@ interface XStylesBase {
     overflow?: 'hidden' | null;
     textOverflow?: 'ellipsis' | null;
     whiteSpace?: 'nowrap' | null;
-    textDecoration?: 'underline' | null;
+    textDecoration?: 'none' | 'underline' | null;
     textDecorationColor?: string | null;
 }
 
@@ -105,7 +105,7 @@ interface XStylesHover {
     hoverOverflow?: 'hidden' | null;
     hoverTextOverflow?: 'ellipsis' | null;
     hoverWhiteSpace?: 'nowrap' | null;
-    hoverTextDecoration?: 'underline' | null;
+    hoverTextDecoration?: 'none' | 'underline' | null;
     hoverTextDecorationColor?: string | null;
 }
 
@@ -159,7 +159,7 @@ interface XStylesSelected {
     selectedOverflow?: 'hidden' | null;
     selectedTextOverflow?: 'ellipsis' | null;
     selectedWhiteSpace?: 'nowrap' | null;
-    selectedTextDecoration?: 'underline' | null;
+    selectedTextDecoration?: 'none' | 'underline' | null;
     selectedTextDecorationColor?: string | null;
 }
 
@@ -213,7 +213,7 @@ interface XStylesSelectedHover {
     selectedHoverOverflow?: 'hidden' | null;
     selectedHoverTextOverflow?: 'ellipsis' | null;
     selectedHoverWhiteSpace?: 'nowrap' | null;
-    selectedHoverTextDecoration?: 'underline' | null;
+    selectedHoverTextDecoration?: 'none' | 'underline' | null;
     selectedHoverTextDecorationColor?: string | null;
 }
 
