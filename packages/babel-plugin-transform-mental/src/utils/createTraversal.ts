@@ -32,7 +32,7 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                     for (let p of pending) {
                         body.unshift(p);
                     }
-                    body.unshift(t.importDeclaration([t.importSpecifier(t.identifier('calculateStyles'), t.identifier('calculateStyles'))], t.stringLiteral('openland-x-styles/calculateStyles')));
+                    body.unshift(t.importDeclaration([t.importSpecifier(t.identifier('calculateStyles'), t.identifier('calculateStyles'))], t.stringLiteral('mental-styles/calculateStyles')));
                 }
             }
         },
