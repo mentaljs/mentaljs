@@ -4,6 +4,7 @@ import { calculateStyles } from 'mental-styles';
 import { XViewSelectedContext } from './XViewSelectedContext';
 import { XViewRouterContext } from './XViewRouterContext';
 import { XViewRouteContext } from './XViewRouteContext';
+import { XViewRouter } from './XViewRouter';
 
 function normalizePath(src: string): string {
     if (src.indexOf('?') >= 0) {
@@ -44,10 +45,15 @@ export interface XViewProps extends XStyles {
 
 export const XView = React.memo((props: XViewProps) => {
 
+    let router: XViewRouter | undefined;
+
+    if (props.path) {
+        router = React.useContext(XViewRouterContext);
+    }
+
     // Resolve on click
     let onClick = React.useMemo<React.MouseEventHandler<any> | undefined>(() => {
         if (props.path) {
-            let router = React.useContext(XViewRouterContext);
             if (!router) {
                 return props.onClick;
             }
