@@ -44,10 +44,15 @@ export interface XViewProps extends XStyles {
 
 export const XView = React.memo((props: XViewProps) => {
 
+    let router = undefined;
+
+    if (props.path) {
+        let router = React.useContext(XViewRouterContext);
+    }
+
     // Resolve on click
     let onClick = React.useMemo<React.MouseEventHandler<any> | undefined>(() => {
         if (props.path) {
-            let router = React.useContext(XViewRouterContext);
             if (!router) {
                 return props.onClick;
             }
