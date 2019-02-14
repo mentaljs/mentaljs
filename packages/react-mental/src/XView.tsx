@@ -4,7 +4,7 @@ import { calculateStyles } from 'mental-styles';
 import { XViewSelectedContext } from './XViewSelectedContext';
 import { XViewRouterContext } from './XViewRouterContext';
 import { XViewRouteContext } from './XViewRouteContext';
-import { XViewRouter } from './XViewRouter';
+import { XMemo } from './XMemo';
 
 function normalizePath(src: string): string {
     if (src.indexOf('?') >= 0) {
@@ -43,13 +43,12 @@ export interface XViewProps extends XStyles {
     children?: any;
 }
 
-export const XView = React.memo((props: XViewProps) => {
+export const XView = XMemo((props: XViewProps) => {
 
-    let router: XViewRouter | undefined;
-
-    if (props.path) {
-        router = React.useContext(XViewRouterContext);
-    }
+    // Don’t call Hooks inside conditions ( https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level )
+    let router = React.useContext(XViewRouterContext);
+    let route = React.useContext(XViewRouteContext);
+    let context = React.useContext(XViewSelectedContext);
 
     // Resolve on click
     let onClick = React.useMemo<React.MouseEventHandler<any> | undefined>(() => {
@@ -88,7 +87,6 @@ export const XView = React.memo((props: XViewProps) => {
     let enforceSelected = false;
     if (shouldTrackSelected) {
         if (props.linkSelectable && props.path) {
-            let route = React.useContext(XViewRouteContext);
             if (route) {
                 let path = normalizePath(route.path);
                 if (path === props.path || (props.linkStrict && path.startsWith(props.path + '/'))) {
@@ -101,7 +99,6 @@ export const XView = React.memo((props: XViewProps) => {
                 selected = false;
             }
         } else {
-            let context = React.useContext(XViewSelectedContext);
             selected = context;
         }
     } else if (props.selected !== undefined) {
