@@ -11,7 +11,7 @@ export function exportStyles(styles: any) {
     let root = path.join(process.cwd(), 'node_modules', '.cache', 'mentaljs', 'styles');
     let fpath = path.join(root, fname) + '.css';
     mkdirp.sync(root);
-    if (!fs.existsSync(fname)) {
+    if (!fs.existsSync(fpath)) {
         fs.writeFileSync(fpath, cssValue);
     }
     return {
