@@ -35,5 +35,7 @@ module.exports = {
         'react-mental-babel': '<rootDir>/packages/react-mental-babel',
         'react-mental/(.*)': '<rootDir>/packages/react-mental/$1',
         'react-mental': '<rootDir>/packages/react-mental',
+        'react-log/(.*)': '<rootDir>/packages/react-mental/$1',
+        'react-log': '<rootDir>/packages/react-mental',
     },
 };

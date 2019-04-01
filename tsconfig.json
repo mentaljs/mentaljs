@@ -12,5 +12,7 @@
         "path": "./packages/react-mental"
     }, {
         "path": "./packages/babel-plugin-transform-mental"
-    }]
+    }, {
+        "path": "./packages/mental-log"
+    }, ]
 }
