@@ -8,14 +8,14 @@ export class ConsoleLogger implements Logger {
     }
 
     log = (msg: string) => {
-        console.log(msg);
+        console.log(this._tag + ': ' + msg);
     };
 
     error = (e: any) => {
-        console.error(e);
+        console.error(this._tag + ': ', e);
     };
 
     warn = (e: any) => {
-        console.warn(e);
+        console.warn(this._tag + ': ', e);
     };
 }
