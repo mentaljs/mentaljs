@@ -88,6 +88,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                 } else {
                                     hasOnlyStaticStyles = false;
                                 }
+                            } else {
+                                hasOnlyStaticStyles = false;
                             }
                         } else {
                             if (a.name.name !== 'key' &&
