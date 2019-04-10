@@ -112,6 +112,8 @@ export function createTraversal(keyGenerator: KeyGenerator) {
                                 }
                             }
                         }
+                    } else {
+                        hasOnlyStaticStyles = false;
                     }
 
                     if (!removed) {
