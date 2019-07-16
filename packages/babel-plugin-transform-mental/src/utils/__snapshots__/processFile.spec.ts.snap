@@ -2,7 +2,7 @@
 
 exports[`babel should extract static styles 1`] = `
 "import { calculateStyles } from \\"mental-styles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-qtc31w.css\\";
+import \\"/Volumes/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-qtc31w.css\\";
 export class Bar extends React.Component {
   render() {
     let a = 1;
@@ -16,7 +16,7 @@ export class Bar extends React.Component {
 
 exports[`babel should ignore keys and callbacks 1`] = `
 "import { calculateStyles } from \\"mental-styles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
+import \\"/Volumes/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
 export class Bar extends React.Component {
   callback = () => {};
 
@@ -31,7 +31,7 @@ export class Bar extends React.Component {
 
 exports[`babel should replace with static div for static-only views 1`] = `
 "import { calculateStyles } from \\"mental-styles\\";
-import \\"/Users/steve/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
+import \\"/Volumes/Develop/mentaljs/node_modules/.cache/mentaljs/styles/css-17haofa.css\\";
 export class Bar extends React.Component {
   render() {
     return <div className=\\"x css-17haofa\\">
