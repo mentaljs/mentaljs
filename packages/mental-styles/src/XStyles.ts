@@ -46,7 +46,7 @@ interface XStylesBase {
     backgroundImage?: string | null;
     backgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
     fontSize?: number | null;
-    fontWeight?: '400' | '600';
+    fontWeight?: '400' | '600' | '700';
     lineHeight?: number | string | null;
     overflow?: 'hidden' | null;
     textOverflow?: 'ellipsis' | null;
@@ -100,7 +100,7 @@ interface XStylesHover {
     hoverBackgroundImage?: string | null;
     hoverBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
     hoverFontSize?: number | null;
-    hoverFontWeight?: '400' | '600';
+    hoverFontWeight?: '400' | '600' | '700';
     hoverLineHeight?: number | string | null;
     hoverOverflow?: 'hidden' | null;
     hoverTextOverflow?: 'ellipsis' | null;
@@ -154,7 +154,7 @@ interface XStylesSelected {
     selectedBackgroundImage?: string | null;
     selectedBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
     selectedFontSize?: number | null;
-    selectedFontWeight?: '400' | '600';
+    selectedFontWeight?: '400' | '600' | '700';
     selectedLineHeight?: number | string | null;
     selectedOverflow?: 'hidden' | null;
     selectedTextOverflow?: 'ellipsis' | null;
@@ -208,7 +208,7 @@ interface XStylesSelectedHover {
     selectedHoverBackgroundImage?: string | null;
     selectedHoverBackgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y' | null;
     selectedHoverFontSize?: number | null;
-    selectedHoverFontWeight?: '400' | '600';
+    selectedHoverFontWeight?: '400' | '600' | '700';
     selectedHoverLineHeight?: number | string | null;
     selectedHoverOverflow?: 'hidden' | null;
     selectedHoverTextOverflow?: 'ellipsis' | null;
