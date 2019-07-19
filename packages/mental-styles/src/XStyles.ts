@@ -2,6 +2,7 @@ interface XStylesBase {
 
     transition?: string | null;
     contain?: string | null;
+    extractLayer?: boolean | null;
 
     position?: 'relative' | 'absolute' | 'fixed' | null;
     flexGrow?: number | null;
@@ -59,6 +60,7 @@ interface XStylesBase {
 interface XStylesHover {
     hoverPosition?: 'relative' | 'absolute' | 'fixed' | null;
     hoverContain?: string | null;
+    hoverExtractLayer?: boolean | null;
     hoverFlexGrow?: number | null;
     hoverFlexShrink?: number | null;
     hoverFlexBasis?: number | null;
@@ -114,6 +116,7 @@ interface XStylesHover {
 interface XStylesSelected {
     selectedPosition?: 'relative' | 'absolute' | 'fixed' | null;
     selectedContain?: string | null;
+    selectedExtractLayer?: boolean | null;
     selectedFlexGrow?: number | null;
     selectedFlexShrink?: number | null;
     selectedFlexBasis?: number | null;
@@ -168,6 +171,7 @@ interface XStylesSelected {
 
 interface XStylesSelectedHover {
     selectedHoverPosition?: 'relative' | 'absolute' | 'fixed' | null;
+    selectedHoverExtractLayer?: boolean | null;
     selectedHoverContain?: string | null;
     selectedHoverFlexGrow?: number | null;
     selectedHoverFlexShrink?: number | null;
