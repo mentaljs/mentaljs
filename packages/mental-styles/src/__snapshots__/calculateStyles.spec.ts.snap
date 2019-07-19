@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calculateStyles should caluclate style 1`] = `"x css-1pmt67w"`;
