@@ -26,7 +26,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let v = src[k];
         let key = k + ': ' + v;
         if (!stylesCache.has(key)) {
-            stylesCache.set(key, factory.createStyle({ k: v }));
+            stylesCache.set(key, factory.createStyle({ [k]: v }));
         }
         css.push(stylesCache.get(key)!);
     }
@@ -35,7 +35,7 @@ export function calculateStyles(styles: XStyles, selected: boolean = false) {
         let key = 'hover-' + k + ': ' + v;
         if (!stylesCache.has(key)) {
             stylesCache.set(key, factory.createStyle({
-                '&:hover, &:focus': { k: v }
+                '&:hover, &:focus': { [k]: v }
             }));
         }
         css.push(stylesCache.get(key)!);
