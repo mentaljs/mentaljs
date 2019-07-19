@@ -12,6 +12,7 @@ export const stylesMap = {
 
     // Layouting
     position: (v: 'relative' | 'absolute' | 'fixed') => ({ position: v }),
+    contain: (v: string) => ({ contain: v }),
     top: (v: number) => ({ top: v }),
     bottom: (v: number) => ({ bottom: v }),
     left: (v: number) => ({ left: v }),
