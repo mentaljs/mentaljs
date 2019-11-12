@@ -37,6 +37,7 @@ export interface XViewProps extends XStyles {
     // Image
     src?: string;
     srcSet?: string;
+    onError?: React.ReactEventHandler<any>;
 
     // React
     ref?: any;
@@ -133,7 +134,7 @@ export const XView = React.memo((props: XViewProps) => {
         );
     } else if (props.as === 'img') {
         render = (
-            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} src={props.src} srcSet={props.srcSet} />
+            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} onError={props.onError} ref={props.ref} src={props.src} srcSet={props.srcSet} />
         )
     } else {
         render = (
