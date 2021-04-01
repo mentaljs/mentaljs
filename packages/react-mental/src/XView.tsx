@@ -19,6 +19,7 @@ export interface XViewProps extends XStyles {
     selected?: boolean;
     linkStrict?: boolean;
     as?: 'div' | 'a' | 'img';
+    id?: string;
 
     // Callbacks
     onClick?: React.MouseEventHandler<any>;
@@ -128,17 +129,17 @@ export const XView = React.memo((props: XViewProps) => {
     let render: any;
     if (props.as === 'a') {
         render = (
-            <a className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} target={props.target} href={href} ref={props.ref} >
+            <a className={className} id={props.id} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} target={props.target} href={href} ref={props.ref} >
                 {props.children}
             </a>
         );
     } else if (props.as === 'img') {
         render = (
-            <img className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} onError={props.onError} ref={props.ref} src={props.src} srcSet={props.srcSet} />
+            <img className={className} id={props.id} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} onError={props.onError} ref={props.ref} src={props.src} srcSet={props.srcSet} />
         )
     } else {
         render = (
-            <div className={className} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} >
+            <div className={className} id={props.id} onClick={onClick} onMouseDown={props.onMouseDown} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} onMouseUp={props.onMouseUp} ref={props.ref} >
                 {props.children}
             </div>
         );
